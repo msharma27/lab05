@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Sell Stock</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"></link>
+
+        <!-- Custom styles for this template -->
+        <link rel="stylesheet" href="css/style.css" ></link>
+
+       
+    </h:head>
+    <body>
+        <!-- Add your site or application content here -->
+        <div class="wrapper">
+
+            <div class="container bootstrap snippet">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h1>
+                            Welcome <h:outputText value="#{sessionScope.username}" />
+                        </h1>
+                        <span style="float:right;"><h:link value="Logout" outcome="index" style="text-align: right;"/></span>
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="#" class="pull-right">
+                            <img title="profile image" class="img-circle img-responsive" src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=100"></img>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--left col-->
+                    <div class="col-sm-3">
+                        <ul class="list-group">
+                            <li class="list-group-item text-muted">User Tasks</li>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong>Joined</strong></span> 2.13.2014</li>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong>Last seen</strong></span> Yesterday</li>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong>Real name</strong></span> Joseph Doe</li>
+                        </ul>
+                   
+                    </div>
+
+                    <!-- main column -->
+                    <div class="col-sm-6">
+                        <h:form id="sell">
+                            <h:messages style="color: red;"/>
+                            Stock Name: <h:inputText binding="#{sellSymbol}" id="symbol" styleClass="form-control sellSymbol" value="#{sellController.sellSymbol}" required="true"/><br />
+                            Price: <h:inputText binding="#{sellPrice}" id="price" styleClass="form-control sellPrice" value="#{sellController.sellPrice}" required="true"/><br />
+                            Quantity: <h:inputText binding="#{qty}" id="qty" styleClass="form-control qty" value="#{sellController.qty}" required="true" onkeyup="calculateAmount()"/><br />
+                            Amount: <h:inputText binding="#{amt}" id="amt" styleClass="form-control amt" value="#{sellController.amt}" required="true"/><br />
+                            <h:commandButton styleClass="btn btn-success btn-login-submit" value="Sell" action="#{sellController.createDbRecord1(sellSymbol.value, sellPrice.value, qty.value, amt.value)}"/>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <script type="text/javascript" src="scripts/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript">
+            function calculateAmount() {
+                $("#sell .amt").val(($("#sell .sellPrice").val() * $("#sell .qty").val()).toFixed(2));
+            }
+        </script>
+    </body>
+</html>

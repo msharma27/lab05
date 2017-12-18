@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+
+	<title>Login Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"></link>
+    
+</h:head>
+
+<h:body>
+<c:choose>
+
+ <c:when test="#{sessionScope.sessionFname != null}">
+
+	<h3>You are already logged in.</h3>
+
+</c:when>
+
+
+<c:otherwise>
+
+<div class="jumbotron text-center"> 
+    		<h1>Login Page</h1>
+    </div>
+    	
+ <div class="container">
+ <div class="row">
+ <div class="col-md-3"></div>
+ <div class="col-md-6">
+ <br/><br/> 
+
+	<h:form id="invalidUser">
+    <h:panelGroup rendered="#{not empty registrationController.fname}">
+    <p>Successfully registered.</p>
+	</h:panelGroup>
+    <div class="form-group">
+    	 	Username:<h:inputText id="uname" styleClass="form-control" value="#{loginController.uname}" required="true" requiredMessage="Username Required" validatorMessage="Username can only be characters">
+			<f:validateRegex pattern="[a-zA-Z]*"></f:validateRegex>
+			</h:inputText>
+    		<h:message for="uname" class="form-text text-muted"></h:message> 
+    </div>
+        
+    <div class="form-group">
+    		Password:<h:inputSecret id="password" styleClass="form-control" value="#{loginController.password}" required="true" requiredMessage="Password Required">
+    		</h:inputSecret>
+   			<h:message for="password" class="form-text text-muted"></h:message> 
+   	</div>
+   	
+    <h:commandButton type="submit" value="submit" id="login" class="btn btn-primary" action="#{loginController.loginUser}"/>
+    	
+	</h:form>
+ </div>
+ <div class="col-md-6"></div>
+ </div> 
+ </div>
+ 
+
+ 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+</c:otherwise>
+
+
+</c:choose>
+	
+</h:body>
+</html>
